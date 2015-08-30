@@ -1,0 +1,12 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: satelite
+  m_Controller: {fileID: 9100000, guid: cb7b12ba0efecf24d8164a96fd35b5cf, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: de2ed3aa4e2d575439c20539b9166abc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ccd877339a8ab424a81dc696f0f606c9, type: 2}
