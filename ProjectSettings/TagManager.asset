@@ -53,3 +53,6 @@ TagManager:
   - name: Explosion
     uniqueID: 2942534651
     locked: 0
+  - name: Overlay
+    uniqueID: 3915588555
+    locked: 0

@@ -49,7 +49,7 @@ public class TowerComponent : CityComponent
 	}
 	#endregion
 
-	public bool CanFire { get { return ammo > 0 && !broken; } }
+	public bool CanFire { get { return (GameLevel.instance.unlimitedAmmo || ammo > 0) && !broken; } }
 
 	public void FireRocket (Vector3 position)
 	{

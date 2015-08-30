@@ -33,7 +33,7 @@ public class EnemyComponent : GameEntityComponent
 			case EnemyType.Missile:
 				if (target == null) break;
 				var flyToPosition = target.transform.position;
-                transform.LookAt2D(flyToPosition); // direction
+				transform.LookAt2D(flyToPosition); // direction
 				Vector2 position = transform.position;
 				var next = Vector2.MoveTowards(position, flyToPosition, Time.deltaTime * velocity);
 				transform.SetPosition2D(next);
@@ -45,4 +45,12 @@ public class EnemyComponent : GameEntityComponent
 				break;
 		}
 	}
+
+	#region Overrides of GameEntityComponent
+	public override void HitByExplosion (ExplosionComponent explosion)
+	{
+		base.HitByExplosion(explosion);
+		GameLevel.instance.OnKillEnemy(this);
+	}
+	#endregion
 }

@@ -19,11 +19,12 @@ public class GameEntityComponent : MonoBehaviour
 
 	public virtual void Explode ()
 	{
+		if (this == false) return;
 		var explosion = GameLevel.instance.CreateExplosion(this);
 		if (explosion != null) explosion.transform.SetPosition2D(transform.position);
 	}
 
-	public virtual void Destroy () { Destroy(gameObject); }
+	public virtual void Destroy () { if (this == true) Destroy(gameObject); }
 	protected virtual void UpdateRegistry (bool submit)
 	{
 		if (submit) Registry.Add(this);

@@ -8,15 +8,52 @@ using UnityEngine.EventSystems;
 
 public class GameLevel : MonoBehaviour
 {
+	#region Layers
 	public static LayerMask CityLayer = LayerMask.NameToLayer("City");
 	public static LayerMask EnemyLayer = LayerMask.NameToLayer("Enemy");
+	#endregion
 
 	public static GameLevel instance;
 
+	#region Config
 	public RectTransform canvas;
 	public GameObject explosion;
 	public GameObject rocket;
 	public Enemy[] enemies;
+	#endregion
+
+	#region Cheats
+	public bool unlimitedAmmo;
+	#endregion
+
+	public void Replay ()
+	{
+		Player.Main.Clear();
+		Application.LoadLevel("Game");
+	}
+
+	public void OnKillEnemy (EnemyComponent enemy)
+	{
+		var score = GetEnemyKillScore(enemy.enemyType);
+		Player.Main.WaveScore += score;
+		Player.Main.TotalScore += score;
+	}
+
+	protected int GetEnemyKillScore (EnemyType enemyType)
+	{
+		switch (enemyType)
+		{
+			case EnemyType.Missile:
+				return 25;
+			case EnemyType.Satelite:
+			case EnemyType.Bombardier:
+				return 100;
+			case EnemyType.SmartBomb:
+				return 125;
+			default:
+				return 0;
+		}
+	}
 
 	#region Factory
 	public RocketComponent CreateRocket ()
@@ -53,6 +90,7 @@ public class GameLevel : MonoBehaviour
 	}
 	#endregion
 
+	#region Enemy
 	public void SpawnEnemy (EnemyType enemyType)
 	{
 		var rect = canvas.rect;
@@ -66,6 +104,7 @@ public class GameLevel : MonoBehaviour
 		if (enemy == null) return;
 		enemy.transform.SetPosition2D(position);
 	}
+	#endregion
 
 	public int AutoFireToPosition (Vector3 position)
 	{
@@ -81,10 +120,7 @@ public class GameLevel : MonoBehaviour
 	}
 
 	#region Unity
-	protected void OnEnable ()
-	{
-		instance = this;
-	}
+	protected void OnEnable () { instance = this; }
 	protected void Start ()
 	{
 		var clickEvents = new EventTrigger.TriggerEvent();
@@ -97,6 +133,7 @@ public class GameLevel : MonoBehaviour
 		var eventListener = canvas.gameObject.AddComponent<EventTrigger>();
 		eventListener.triggers.Add(new EventTrigger.Entry { eventID = EventTriggerType.PointerClick, callback = clickEvents });
 
+		Player.Main.Clear();
 		InitializeLevel();
 		StartCoroutine(GameLoop());
 	}
@@ -108,7 +145,7 @@ public class GameLevel : MonoBehaviour
 		while (true)
 		{
 			SpawnEnemy(EnemyType.Missile);
-			yield return new WaitForSeconds(2f);
+			yield return new WaitForSeconds(1f);
 		}
 	}
 }
