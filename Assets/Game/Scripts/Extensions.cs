@@ -36,4 +36,12 @@ public static class Extensions
 		var angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.AngleAxis(angle + 180f, -Vector3.forward);
 	}
+
+	public static T RequireComponent<T> (this GameObject instance) where T : Component
+	{
+		if (instance == null) return null;
+		var retVal = instance.GetComponent<T>();
+		if (retVal) return retVal;
+		return instance.AddComponent<T>();
+	}
 }

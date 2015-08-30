@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// City defensive tower.
 /// </summary>
-public class TowerComponent : GameEntityComponent
+public class TowerComponent : CityComponent
 {
 	#region Static
 	public static readonly List<TowerComponent> Towers = new List<TowerComponent>();
@@ -40,7 +40,16 @@ public class TowerComponent : GameEntityComponent
 		InitializeNextRocket();
 	}
 
-	public bool CanFire { get { return ammo > 0; } }
+	#region Overrides of CityComponent
+	public override void HitByExplosion (ExplosionComponent explosion)
+	{
+		base.HitByExplosion(explosion);
+		ammo = 0;
+		nextRocket.Explode();
+	}
+	#endregion
+
+	public bool CanFire { get { return ammo > 0 && !broken; } }
 
 	public void FireRocket (Vector3 position)
 	{
@@ -49,7 +58,7 @@ public class TowerComponent : GameEntityComponent
 
 		if (nextRocket == null) return;
 		nextRocket.canFly = true;
-		nextRocket.canFollow = false;
+		nextRocket.canLook = false;
 		nextRocket.flyToPosition = position;
 		nextRocket = null;
 
@@ -72,7 +81,7 @@ public class TowerComponent : GameEntityComponent
 		nextRocket = GameLevel.instance.CreateRocket();
 		nextRocket.transform.SetParent(rocketPoint, true);
 		nextRocket.transform.SetLocalPosition2D(Vector2.zero);
-		nextRocket.canFollow = true;
+		nextRocket.canLook = true;
 	}
 
 	protected override void UpdateRegistry (bool submit)

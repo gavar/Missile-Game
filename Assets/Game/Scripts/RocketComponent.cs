@@ -7,20 +7,27 @@ public class RocketComponent : GameEntityComponent
 	public const int MIN_DISTANCE_TO_EXPLODE = 1;
 
 	public Vector2 flyToPosition;
-	public bool canFly, canFollow;
+	public bool canFly, canLook;
 	public float velocity = 200f;
 
-	public void Explode ()
+	public override void Explode ()
 	{
-		var explosion = GameLevel.instance.CreateExplosion();
-		explosion.transform.SetPosition2D(transform.position);
+		base.Explode();
 		Destroy();
 	}
 
+	#region Overrides of GameEntityComponent
+	public override void HitByExplosion (ExplosionComponent explosion)
+	{
+		// don't create explosion
+	}
+	#endregion
+
+	#region Unity
 	protected void Update ()
 	{
-		// follow 
-		if (canFollow) transform.LookAt2D(flyToPosition);
+		// direction 
+		if (canLook) transform.LookAt2D(flyToPosition);
 
 		// fly
 		if (canFly)
@@ -31,4 +38,5 @@ public class RocketComponent : GameEntityComponent
 			if (Vector2.Distance(next, flyToPosition) < MIN_DISTANCE_TO_EXPLODE) Explode();
 		}
 	}
+	#endregion
 }

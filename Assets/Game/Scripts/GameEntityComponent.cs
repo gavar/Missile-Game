@@ -11,6 +11,18 @@ public class GameEntityComponent : MonoBehaviour
 	public static readonly List<GameEntityComponent> Registry = new List<GameEntityComponent>();
 
 	public virtual void Initialize () { }
+	public virtual void HitByExplosion (ExplosionComponent explosion)
+	{
+		Explode(); // create one more explosion
+		Destroy(); // destroy
+	}
+
+	public virtual void Explode ()
+	{
+		var explosion = GameLevel.instance.CreateExplosion(this);
+		if (explosion != null) explosion.transform.SetPosition2D(transform.position);
+	}
+
 	public virtual void Destroy () { Destroy(gameObject); }
 	protected virtual void UpdateRegistry (bool submit)
 	{

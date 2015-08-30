@@ -13,10 +13,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Environemnt
+  - City
+  - Explosion
+  - Enemy
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Environment
+    uniqueID: 2180002845
+    locked: 0
+  - name: City
+    uniqueID: 4931031
+    locked: 0
+  - name: Enemy
+    uniqueID: 201720687
+    locked: 0
+  - name: Explosion
+    uniqueID: 2942534651
     locked: 0

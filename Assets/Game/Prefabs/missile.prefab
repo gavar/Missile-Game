@@ -11,7 +11,8 @@ GameObject:
   - 50: {fileID: 5044372}
   - 61: {fileID: 6144952}
   - 95: {fileID: 9580100}
-  m_Layer: 0
+  - 114: {fileID: 11420020}
+  m_Layer: 11
   m_Name: missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +28,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 453886}
   - 96: {fileID: 9605896}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: path_trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +44,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 477188}
   - 212: {fileID: 21256516}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,6 +180,20 @@ TrailRenderer:
       rgba: 838861055
   m_MinVertexDistance: .00999999978
   m_Autodestruct: 0
+--- !u!114 &11420020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 101012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbdead2ae62beee4ea8a4379c69e29cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 0
+  target: {fileID: 0}
+  velocity: 200
 --- !u!212 &21256516
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -201,7 +216,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1024582385
+  m_SortingLayerID: 201720687
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 98d561d18080f324b9c11e347cdad7ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

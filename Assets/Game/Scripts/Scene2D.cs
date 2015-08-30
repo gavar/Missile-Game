@@ -6,10 +6,13 @@ using UnityEngine.UI;
 [ExecuteInEditMode]
 public class Scene2D : MonoBehaviour
 {
+	public static Scene2D main;
+
 	public float pixelsPerUnit = 1f;
 	public Vector2 referenceResolution = new Vector2(960f, 540); // 16:9
 	[Range (0.0f, 1f)] public float widthOrHeight = 1f; // by height
 	public CanvasScaler.ScreenMatchMode screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+	public bool isMain;
 
 	protected void UpdateSceneScale ()
 	{
@@ -36,6 +39,7 @@ public class Scene2D : MonoBehaviour
 	}
 
 	#region Unity
+	protected void Awake () { if (isMain) main = this; }
 	protected void Update () { UpdateSceneScale(); }
 	#endregion
 }
